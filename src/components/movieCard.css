@@ -50,7 +50,8 @@
     bottom: 0;
     /* display: none; */
     transform: translateY(100%);
-    padding: 10px;
+    padding: 5px;
+    font-size: 15px;
     transition: all 0.3s ease-out;
     border-radius: 5px;
 }
@@ -66,6 +67,9 @@
         width: 160px;
         height: 290px;
     }
+    .mv-review{
+        font-size: 15px;
+    }
 }
 
 @media screen and (max-width:412px){
@@ -73,11 +77,17 @@
         width: 175px;
         height: 230px;
     }
+    .mv-review{
+        font-size: 13px;
+    }
 }
 
 @media screen and (max-width:380px){
     .mv-card{
         width: 150px;
         height: 250px;
+    }
+    .mv-review{
+        font-size: 11px;
     }
 }
