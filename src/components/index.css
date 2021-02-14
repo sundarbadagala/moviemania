@@ -1,0 +1,12 @@
+
+.mv-component{
+    margin: 10px;
+    /* border: 1px solid red; */
+    overflow: hidden;
+}
+.mv-main{
+    /* border: 1px solid black; */
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #050529;
+}
