@@ -39,13 +39,7 @@ function Index() {
         e.preventDefault()
         if(searchName){
             axios.get('https://api.themoviedb.org/3/search/movie?&api_key=04c35731a5ee918f014970082a0088b1&query='+searchName)
-            .then(res => {
-                if(res.data.results.length !== 0){
-                    setMovieData(res.data.results)
-                }else{
-                    setErrorMsg('items not found')
-                }
-            })
+            .then(res =>setMovieData(res.data.results))
             .catch(error => setErrorMsg('Invalid URL'))
         }else if(searchName === ''){
             return getMovieData()
@@ -56,7 +50,6 @@ function Index() {
         getMovieData()
         setSearchName('')
     }
-    console.log(movieData.length)
     return (
         <div>
             <div  className='mv-header'>
