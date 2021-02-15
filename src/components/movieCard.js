@@ -3,7 +3,7 @@ import './movieCard.css'
 
 function Card(props) {
     const [ratingStyle, setRatingStyle]= useState('white')
-    const [fontSize, setFontSize]= useState('15px')
+    const [fontSize, setFontSize]= useState('14px')
     const adjustFontSize=()=>{
         if(window.innerWidth < 412 &&  props.title.length > 50){
             setFontSize('9px')
@@ -36,10 +36,22 @@ function Card(props) {
         <div className='mv-card'>
             <img src={props.poster} alt=''/>
             <div className='mv-details'>
-                <div className='mv-title' style={{fontSize:fontSize}}>{props.title}</div>
-                <div className='mv-rating' style={{color:ratingStyle}}>{props.rating}</div>
+                <div 
+                    className='mv-title' 
+                    style={{fontSize:fontSize}}
+                >
+                    {props.title}
+                </div>
+                <div 
+                    className='mv-rating' 
+                    style={{color:ratingStyle}}
+                >
+                    {props.rating}
+                </div>
             </div>
-            <div className='mv-review'>{props.overview}</div>
+            <div className='mv-review'>
+                {props.overview}
+            </div>
         </div>
     )
 }

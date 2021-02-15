@@ -8,48 +8,64 @@ function Index() {
     const [searchName, setSearchName]= useState('')
     const [errorMsg, setErrorMsg]= useState('')
 
-    const getMovieData=()=>{
-        axios.get('https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=2')
-        .then(res => setMovieData(res.data.results))
-        .catch(error => setErrorMsg('INVALID URL'))
-    }
     useEffect(()=>{
         getMovieData()
     },[])
 
+    const getMovieData=()=>{
+        axios.get('https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1')
+        .then(res => setMovieData(res.data.results))
+        .catch(error => setErrorMsg('Error 404 not found'))
+    }
+    
     const showData=()=>{
+        // eslint-disable-next-line array-callback-return
         const movieComponent = movieData.map((item, index) => {
-            return(
-                <div key={index} className='mv-component'>
-                    <MovieCard 
-                        title={item.original_title}
-                        rating={item.vote_average}
-                        overview={item.overview}
-                        poster={'https://image.tmdb.org/t/p/w1280'+item.poster_path} 
-                        
-                    />
-                </div>
-            )
+                return(
+                    <div key={index} className='mv-component'>
+                        <MovieCard 
+                            title={item.original_title}
+                            rating={item.vote_average}
+                            overview={item.overview}
+                            poster={'https://image.tmdb.org/t/p/w1280'+item.poster_path}          
+                        />
+                    </div>
+                )
         })
         return movieComponent
     }
+
     const submitHanlder=(e)=>{
         e.preventDefault()
         if(searchName){
             axios.get('https://api.themoviedb.org/3/search/movie?&api_key=04c35731a5ee918f014970082a0088b1&query='+searchName)
-            .then(res => setMovieData(res.data.results))
-            .catch(error => setErrorMsg('ITEMS NOT FOUND'))
+            .then(res => {
+                if(res.data.results.length !== 0){
+                    setMovieData(res.data.results)
+                }else{
+                    setErrorMsg('items not found')
+                }
+            })
+            .catch(error => setErrorMsg('Invalid URL'))
         }else if(searchName === ''){
             return getMovieData()
         }
     }
+
     const clickHanlder=()=>{
         getMovieData()
+        setSearchName('')
     }
+    console.log(movieData.length)
     return (
         <div>
             <div  className='mv-header'>
-                <div className='mv-logo' onClick={clickHanlder}>Movie Box</div>
+                <div 
+                    className='mv-logo' 
+                    onClick={clickHanlder}
+                >
+                    Movie Box
+                </div>
                 <form onSubmit={submitHanlder}>
                     <input 
                         type='search' 
@@ -61,7 +77,7 @@ function Index() {
             </div>
             <div className='mv-main'>
                 {
-                    errorMsg ? <h1>{errorMsg}</h1> : showData()
+                    errorMsg ? <div className='mv-error'>{errorMsg}</div> : showData()    
                 }
             </div>
         </div>

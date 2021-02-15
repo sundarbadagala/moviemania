@@ -41,3 +41,9 @@
     color: white;
     padding: 10px;
 }
+.mv-error{
+    margin-top: 10%;
+    color: white;
+    height: 100vh;
+    font-size: 3rem;
+}
